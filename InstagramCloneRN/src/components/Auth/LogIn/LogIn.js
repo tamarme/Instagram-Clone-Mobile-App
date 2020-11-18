@@ -29,7 +29,7 @@ const LogIn = ({ navigation }) => {
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.touchableOpacityContainer}
-                    onPress={() => navigation.navigate('home')}
+                    onPress={() => navigation.navigate('main')}
                 >
                     <View style={styles.buttonSubContainer}>
                         <Text style={styles.buttonText}>Log In</Text>
