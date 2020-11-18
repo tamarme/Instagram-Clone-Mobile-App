@@ -27,7 +27,10 @@ const LogIn = ({ navigation }) => {
                 />
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.touchableOpacityContainer}>
+                <TouchableOpacity
+                    style={styles.touchableOpacityContainer}
+                    onPress={() => navigation.navigate('home')}
+                >
                     <View style={styles.buttonSubContainer}>
                         <Text style={styles.buttonText}>Log In</Text>
                     </View>

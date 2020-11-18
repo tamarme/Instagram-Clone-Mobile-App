@@ -1,4 +1,5 @@
 import React from 'react';
+import Home from './src/components/Home/Home';
 import SignUp from './src/components/Auth/SignUp/SignUp';
 import LogIn from './src/components/Auth/LogIn/LogIn';
 import 'react-native-gesture-handler';
@@ -17,6 +18,7 @@ export default function App() {
       >
         <Stack.Screen name="signup" component={SignUp} />
         <Stack.Screen name="login" component={LogIn} />
+        <Stack.Screen name="home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
 

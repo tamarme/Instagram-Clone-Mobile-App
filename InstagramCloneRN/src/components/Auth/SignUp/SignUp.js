@@ -23,7 +23,7 @@ const SignUp = ({ navigation }) => {
                             style={styles.fbLogo}
                             source={require('../../../../assets/images/fb-logo.png')}
                         />
-                        <Text style={styles.buttonText}>Log in with Facebook</Text>
+                        <Text style={styles.buttonText}>Sign up with Facebook</Text>
                     </View>
                 </TouchableOpacity>
             </View>
