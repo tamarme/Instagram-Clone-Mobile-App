@@ -1,5 +1,4 @@
 import React, { useState, useReducer, useMemo, useEffect } from 'react';
-import { View, Text } from 'react-native';
 import Main from './src/components/Main/Main';
 import SignUp from './src/components/Auth/SignUp/SignUp';
 import LogIn from './src/components/Auth/LogIn/LogIn';
@@ -10,13 +9,12 @@ import { store } from './src/redux/store';
 import { Provider } from 'react-redux';
 import { AuthContext } from './src/context/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoaderImage from './src/components/LoaderImage/LoaderImage';
+//import { loginReducer, initialLoginState } from './src/redux/reducers/LogIn/login';
 
 const Stack = createStackNavigator();
 
 export default function App() {
-
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [userToken, setUserToken] = useState(null);
 
   initialLoginState = {
     isLoading: true,
@@ -56,6 +54,7 @@ export default function App() {
     }
   }
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
+  
   const authContext = useMemo(() => ({
     signIn: async (userName, password) => {
       let userToken = null;
@@ -80,6 +79,7 @@ export default function App() {
     signUp: () => {
     }
   }), [])
+
   useEffect(() => {
     setTimeout(async () => {
       let userToken = null;
@@ -93,11 +93,7 @@ export default function App() {
   }, [])
 
   if (loginState.isLoading) {
-    return (
-      <View>
-        <Text>Loading</Text>
-      </View>
-    )
+    return <LoaderImage />
   }
 
   return (
