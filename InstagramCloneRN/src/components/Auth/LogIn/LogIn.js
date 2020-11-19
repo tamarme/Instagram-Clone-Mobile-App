@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import Constants from 'expo-constants';
 import Divider from 'react-native-divider';
@@ -7,6 +7,10 @@ import { AuthContext } from '../../../context/context';
 
 const LogIn = ({ navigation }) => {
     const { signIn } = useContext(AuthContext);
+    const [username, setUsername] = useState(null);
+    const [password, setPassword] = useState(null);
+
+
     return (
         <View style={styles.container}>
             <View style={styles.textLogoContainer}>
@@ -20,19 +24,21 @@ const LogIn = ({ navigation }) => {
                 <TextInput
                     placeholder='Phone number email or username'
                     style={styles.textInputs}
-                //onChangeText={text => onChangeText(text)}
+                    onChangeText={text => { setUsername(text) }}
+                    value={username}
                 />
                 <TextInput
                     secureTextEntry
                     placeholder='Password'
                     style={styles.textInputs}
-                //onChangeText={text => onChangeText(text)}
+                    onChangeText={text => { setPassword(text) }}
+                    value={password}
                 />
             </View>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.touchableOpacityContainer}
-                    onPress={() => { signIn() }}
+                    onPress={() => { signIn(username, password) }}
                 >
                     <View style={styles.buttonSubContainer}>
                         <Text style={styles.buttonText}>Log In</Text>

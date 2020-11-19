@@ -1,10 +1,12 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { AuthContext } from '../../../context/context';
 
 const Profile = () => {
+    const { signOut } = useContext(AuthContext);
     return (
         <View style={styles.container}>
-            <Text>Profile</Text>
+            <Button title="Sign Out" onPress={() => { signOut() }} />
         </View>
     )
 }

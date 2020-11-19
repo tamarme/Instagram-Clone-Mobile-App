@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useReducer, useMemo, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import Main from './src/components/Main/Main';
 import SignUp from './src/components/Auth/SignUp/SignUp';
@@ -14,29 +14,71 @@ const Stack = createStackNavigator();
 
 export default function App() {
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [userToken, setUserToken] = useState(null);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [userToken, setUserToken] = useState(null);
+
+  initialLoginState = {
+    isLoading: true,
+    userName: null,
+    userToken: null
+  }
+
+  loginReducer = (prevState, action) => {
+    switch (action.type) {
+      case 'RETRIEVE_TOKEN':
+        return {
+          ...prevState,
+          userToken: action.token,
+          isLoading: false
+        };
+      case 'LOGIN':
+        return {
+          ...prevState,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false
+        };
+      case 'LOGOUT':
+        return {
+          ...prevState,
+          userName: null,
+          userToken: null,
+          isLoading: false
+        };
+      case 'REGISTER':
+        return {
+          ...prevState,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false
+        };
+    }
+  }
+  const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
   const authContext = useMemo(() => ({
-    signIn: () => {
-      setUserToken('bvfkjdf');
-      setIsLoading(false);
+    signIn: (userName, password) => {
+      let userToken = null;
+      if (userName === 'user' && password === 'pass') {
+        userToken = 'gvyruekh';
+      }
+      dispatch({ type: 'LOGIN', id: userName, token: userToken })
     },
     signOut: () => {
-      setUserToken(null);
-      setIsLoading(false);
+      dispatch({ type: 'LOGOUT' })
     },
     signUp: () => {
-      setUserToken('bvfkjdf');
-      setIsLoading(false);
+      // setUserToken('bvfkjdf');
+      // setIsLoading(false);
     }
-  }))
+  }), [])
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false);
+      // setIsLoading(false);
+      dispatch({ type: 'REGISTER', token: null })
     }, 1000);
   }, [])
 
-  if (isLoading) {
+  if (loginState.isLoading) {
     return (
       <View>
         <Text>Loading</Text>
@@ -48,7 +90,7 @@ export default function App() {
     <Provider store={store}>
       <AuthContext.Provider value={authContext}>
         <NavigationContainer>
-          {userToken === null ? (
+          {loginState.userToken === null ? (
             <Stack.Navigator
               screenOptions={{
                 headerShown: false
