@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { store } from './src/redux/store';
 import { Provider } from 'react-redux';
 import { AuthContext } from './src/context/context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
@@ -56,25 +57,38 @@ export default function App() {
   }
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
   const authContext = useMemo(() => ({
-    signIn: (userName, password) => {
+    signIn: async (userName, password) => {
       let userToken = null;
       if (userName === 'user' && password === 'pass') {
         userToken = 'gvyruekh';
+        try {
+          await AsyncStorage.setItem('userToken', userToken);
+        } catch (e) {
+          console.log(e);
+        }
       }
       dispatch({ type: 'LOGIN', id: userName, token: userToken })
     },
-    signOut: () => {
+    signOut: async () => {
+      try {
+        await AsyncStorage.removeItem('userToken');
+      } catch (e) {
+        console.log(e);
+      }
       dispatch({ type: 'LOGOUT' })
     },
     signUp: () => {
-      // setUserToken('bvfkjdf');
-      // setIsLoading(false);
     }
   }), [])
   useEffect(() => {
-    setTimeout(() => {
-      // setIsLoading(false);
-      dispatch({ type: 'REGISTER', token: null })
+    setTimeout(async () => {
+      let userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem('userToken');
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch({ type: 'REGISTER', token: userToken })
     }, 1000);
   }, [])
 
