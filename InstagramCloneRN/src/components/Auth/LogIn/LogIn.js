@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import Constants from 'expo-constants';
 import Divider from 'react-native-divider';
+import { AuthContext } from '../../../context/context';
+
 
 const LogIn = ({ navigation }) => {
+    const { signIn } = useContext(AuthContext);
     return (
         <View style={styles.container}>
             <View style={styles.textLogoContainer}>
@@ -29,7 +32,7 @@ const LogIn = ({ navigation }) => {
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.touchableOpacityContainer}
-                    onPress={() => navigation.navigate('main')}
+                    onPress={() => { signIn() }}
                 >
                     <View style={styles.buttonSubContainer}>
                         <Text style={styles.buttonText}>Log In</Text>
