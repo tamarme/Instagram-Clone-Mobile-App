@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 
 const LoaderImage = () => {
@@ -5,7 +6,7 @@ const LoaderImage = () => {
         <View style={styles.container}>
             <Image
                 style={styles.loader}
-                source={require('./assets/images/loader.gif')}
+                source={require('../../../assets/images/loader.gif')}
             />
         </View>
     )

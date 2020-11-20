@@ -10,7 +10,6 @@ import { Provider } from 'react-redux';
 import { AuthContext } from './src/context/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoaderImage from './src/components/LoaderImage/LoaderImage';
-//import { loginReducer, initialLoginState } from './src/redux/reducers/LogIn/login';
 
 const Stack = createStackNavigator();
 
@@ -54,7 +53,7 @@ export default function App() {
     }
   }
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
-  
+
   const authContext = useMemo(() => ({
     signIn: async (userName, password) => {
       let userToken = null;
@@ -106,8 +105,8 @@ export default function App() {
                 headerShown: false
               }}
             >
-              <Stack.Screen name="signup" component={SignUp} />
               <Stack.Screen name="login" component={LogIn} />
+              <Stack.Screen name="signup" component={SignUp} />
             </Stack.Navigator>
           ) : (
               <Main />
