@@ -15,13 +15,13 @@ const Stack = createStackNavigator();
 
 export default function App() {
 
-  initialLoginState = {
+  const initialLoginState = {
     isLoading: true,
     userName: null,
     userToken: null
   }
 
-  loginReducer = (prevState, action) => {
+  const loginReducer = (prevState, action) => {
     switch (action.type) {
       case 'RETRIEVE_TOKEN':
         return {
